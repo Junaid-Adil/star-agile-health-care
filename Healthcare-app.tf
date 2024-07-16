@@ -125,8 +125,9 @@ resource "aws_eip" "proj-eip" {
 
 
 # Creating an ubuntu EC2 instance
-resource "aws_instance" "Kubernetes-Master" {
- ami = "ami-0c2af51e265bd5e0e"
+resource "aws_instance" "Kubernetes-cluster" {
+count = 3
+ami = "ami-0c2af51e265bd5e0e"
  instance_type = "t2.micro"
  availability_zone = "ap-south-1b"
  key_name = "Demo1keypair"
@@ -143,20 +144,3 @@ resource "aws_instance" "Kubernetes-Master" {
  }
 }
 
-resource "aws_instance" "Test-server" {
- ami = "ami-0c2af51e265bd5e0e"
- instance_type = "t2.micro"
- availability_zone = "ap-south-1b"
- key_name = "Demo1keypair"
- network_interface {
- device_index = 0
- network_interface_id = aws_network_interface.proj-ni.id
- }
- user_data  = <<-EOF
- #!/bin/bash
-     sudo apt-get update -y
- EOF
- tags = {
- Name = "Test-server"
- }
-}
