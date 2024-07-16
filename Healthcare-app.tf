@@ -160,21 +160,3 @@ resource "aws_instance" "Test-server" {
  Name = "Test-server"
  }
 }
-
-resource "aws_instance" "Prod-server" {
- ami = "ami-0c2af51e265bd5e0e"
- instance_type = "t2.micro"
- availability_zone = "ap-south-1b"
- key_name = "Demo1keypair"
- network_interface {
- device_index = 0
- network_interface_id = aws_network_interface.proj-ni.id
- }
- user_data  = <<-EOF
- #!/bin/bash
-     sudo apt-get update -y
- EOF
- tags = {
- Name = "Prod-server"
- }
-}
