@@ -19,6 +19,28 @@ spec:
         image: junaidadil/healthcare-app
         ports:
         - containerPort: 8082
+        volumeMounts:
+            - name: config-volume
+              mountPath: /etc/config
+              readOnly: true 
+  volumes:
+        - name: config-volume
+          configMap:
+            name: healthcare-app-config
+            items:
+              - key: ENV_VAR1
+                path: ENV_VAR1
+              - key: ENV_VAR2
+                path: ENV_VAR2
+  spec:
+  template:
+    spec:
+      containers:
+        - name: healthcare-app-container
+          image: junaidadil/healthcare-app
+          envFrom:
+            - secretRef:
+                name: my-secret
 ---
 apiVersion: v1
 kind: Service
