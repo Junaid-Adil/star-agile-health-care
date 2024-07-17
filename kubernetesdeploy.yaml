@@ -19,7 +19,9 @@ spec:
         image: junaidadil/healthcare-app:project2
         ports:
         - containerPort: 8082
-        
+      imagePullSecrets:
+      - name: myregistrykey   
+
 ---
 apiVersion: v1
 kind: Service
@@ -30,9 +32,8 @@ metadata:
 spec:
   selector:
     app: healthcare-app
-
   type: NodePort
   ports:
-  - nodePort: 31020  
+  - nodePort: 31020
     port: 8082
     targetPort: 8082
