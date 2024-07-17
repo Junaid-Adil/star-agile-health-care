@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: healthcare-app-container
-        image: junaidadil/healthcare-app
+        image: junaidadil/healthcare-app:project2
         ports:
         - containerPort: 8082
         
